@@ -10,10 +10,7 @@ app.use(express.urlencoded({ extended: true }));
 const movies = [{title:"The Matrix", Genre: "Sci-Fi" }, {title:"Star Wars", Genre: "Space Opera" }];
 
 app.post("/movies", (req, res) => {
-
-
     movies.push(req.body)
-
     res.json(movies);
 })
 
