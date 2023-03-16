@@ -15,21 +15,17 @@ app.post("/movies", (req, res) => {
 
     movies.push({ ...req.body, id: currentId })
     currentId++;
-
     res.json(movies);
 })
+
+
+
 app.put("/movies/:id", (req, res) => {
-console.log(req.params.id)
-console.log(req.params.body)
 
     movies = movies.map(movie => {
 
-
-        if (movie.id === req.params.id) {
-            console.log("change")
-            return { ...req.params.body };
-
-
+        if (movie.id === parseInt(req.params.id)) {     
+            return {...movie, ...req.body };
         }
 
         else return movie;
@@ -41,8 +37,27 @@ console.log(req.params.body)
 })
 
 
+app.delete("/movies/:id", (req, res) => {
+
+    movies = movies.filter(movie => {
+        return movie.id !== parseInt(req.params.id)
+    })
+
+
+    res.json(movies);
+})
+
 app.get("/movies", (req, res) => {
     res.json(movies)
+}
+);
+
+
+
+app.get("/movies/:id", (req, res) => {
+
+    let [movie] = movies.filter(movie => movie.id === parseInt(req.params.id))
+    res.json(movie)
 }
 );
 
